@@ -125,8 +125,12 @@ import { master, facts } from '../data/master';
       grid-template-columns: 1fr;
     }
     .photo {
-      max-width: 280px;
+      max-width: 440px;
+      width: 100%;
+      margin: 0 auto;
     }
+  }
+  @media (max-width: 560px) {
     .facts {
       grid-template-columns: 1fr;
       gap: 16px;

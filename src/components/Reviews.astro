@@ -58,9 +58,17 @@ import { master, reviews, parentQuotes } from '../data/master';
   document.querySelectorAll<HTMLElement>('[data-wall]').forEach((wall) => {
     const section = wall.closest('section');
     const btn = section?.querySelector<HTMLButtonElement>('[data-more]');
+    const fits = () => {
+      if (!wall.classList.contains('is-open') && wall.scrollHeight <= wall.clientHeight + 40) {
+        wall.classList.add('is-open');
+        if (btn) btn.style.display = 'none';
+      }
+    };
+    fits();
+    window.addEventListener('load', () => setTimeout(fits, 1200));
     btn?.addEventListener('click', () => {
       wall.classList.add('is-open');
-      btn.hidden = true;
+      btn.style.display = 'none';
     });
   });
 </script>

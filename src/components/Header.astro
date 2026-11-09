@@ -162,6 +162,7 @@ const home = import.meta.env.BASE_URL;
     color: var(--ink-muted);
     text-decoration: none;
     transition: color 0.15s ease;
+    white-space: nowrap;
   }
   .nav a:hover {
     color: var(--accent);
@@ -283,6 +284,12 @@ const home = import.meta.env.BASE_URL;
     .burger { display: block; }
   }
 
+  :global(html.no-scroll) .hdr {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
   :global(html.no-scroll),
   :global(html.no-scroll body) {
     overflow: hidden;

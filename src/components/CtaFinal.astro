@@ -60,11 +60,11 @@ import CtaGroup from './CtaGroup.astro';
     align-items: flex-start;
     gap: 14px;
   }
-  .actions .btn-primary {
+  .actions :global(.btn-primary) {
     background: var(--accent);
     color: #ffffff;
   }
-  .actions .btn-primary:hover {
+  .actions :global(.btn-primary):hover {
     background: var(--accent-hover);
   }
   .actions .btn-ghost {
