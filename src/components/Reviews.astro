@@ -1,0 +1,235 @@
+---
+import { master, reviews, parentQuotes } from '../data/master';
+---
+
+<section id="reviews" class="rv">
+  <div class="wrap">
+    <header class="section-head rv__head" data-reveal>
+      <div>
+        <span class="section-eyebrow">Отзывы родителей</span>
+        <h2>Что пишут о&nbsp;студии в&nbsp;2ГИС.</h2>
+        <p>
+          Дословные фрагменты отзывов родителей. Полные тексты и&nbsp;ответы
+          студии в&nbsp;карточке 2ГИС.
+        </p>
+      </div>
+      <a class="rating" href={master.gisReviews} target="_blank" rel="noopener">
+        <span class="rating__big">{master.gisRating}</span>
+        <span class="rating__note">из&nbsp;5, {master.gisCount} в&nbsp;2ГИС</span>
+      </a>
+    </header>
+
+    <div class="rv__wall" data-wall>
+      <div class="rv__cols">
+        {reviews.map((r, i) => (
+          <figure class="rc" data-reveal data-reveal-delay={Math.min(i * 60, 300)}>
+            <span class="rc__mark" aria-hidden="true">“</span>
+            <blockquote>{r.text}</blockquote>
+            <figcaption>
+              <span class="rc__name">{r.name}</span>
+              <span class="rc__date">{r.date}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="rv__fade" aria-hidden="true"></div>
+    </div>
+
+    <div class="rv__footer">
+      <button class="btn btn-secondary" type="button" data-more>
+        <span>Показать все отзывы</span>
+        <span class="arrow" aria-hidden="true">↓</span>
+      </button>
+      <a class="btn btn-ghost" href={master.gisReviews} target="_blank" rel="noopener">
+        Читать в&nbsp;2ГИС →
+      </a>
+    </div>
+
+    <aside class="voices" data-reveal>
+      <span class="section-eyebrow">фразы родителей из&nbsp;итогов учебного года</span>
+      <ul>
+        {parentQuotes.map((q) => <li>«{q}»</li>)}
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-wall]').forEach((wall) => {
+    const section = wall.closest('section');
+    const btn = section?.querySelector<HTMLButtonElement>('[data-more]');
+    btn?.addEventListener('click', () => {
+      wall.classList.add('is-open');
+      btn.hidden = true;
+    });
+  });
+</script>
+
+<style>
+  .rv {
+    background: var(--bg-soft);
+  }
+  .rv__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    max-width: none;
+  }
+  .rv__head > div {
+    max-width: 640px;
+  }
+  .rating {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 20px 26px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.18s ease;
+  }
+  .rating:hover {
+    border-color: var(--accent);
+  }
+  .rating__big {
+    font-family: var(--font-serif);
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .rating__stars {
+    color: #e0a63a;
+    letter-spacing: 2px;
+    font-size: 15px;
+  }
+  .rating__note {
+    font-size: 13px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  .rv__wall {
+    position: relative;
+    max-height: 1100px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .rv__wall.is-open {
+    max-height: none;
+  }
+  .rv__wall.is-open .rv__fade {
+    display: none;
+  }
+  .rv__fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 200px;
+    background: linear-gradient(to bottom, rgba(242, 238, 228, 0), var(--bg-soft) 92%);
+    pointer-events: none;
+  }
+  .rv__cols {
+    columns: 3;
+    column-gap: 16px;
+  }
+  .rc {
+    break-inside: avoid;
+    margin: 0 0 16px;
+    padding: 26px 24px 22px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow:
+      0 1px 2px rgba(31, 43, 41, 0.05),
+      0 6px 20px rgba(31, 43, 41, 0.06);
+    position: relative;
+  }
+  .rc__mark {
+    font-family: var(--font-serif);
+    font-size: 56px;
+    line-height: 0.6;
+    color: var(--accent-line);
+    display: block;
+    height: 22px;
+  }
+  .rc blockquote {
+    margin: 0 0 18px;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .rc figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .rc__name {
+    font-weight: 500;
+    font-size: 14.5px;
+  }
+  .rc__date {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  .rv__footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 14px 28px;
+  }
+
+  .voices {
+    margin-top: clamp(56px, 7vw, 88px);
+    padding: clamp(28px, 4vw, 44px);
+    border-radius: var(--radius-lg);
+    background: #ffffff;
+    border: 1px solid var(--line);
+  }
+  .voices ul {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .voices li {
+    font-family: var(--font-serif);
+    font-size: 19px;
+    line-height: 1.45;
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  @media (max-width: 960px) {
+    .rv__cols {
+      columns: 2;
+    }
+    .voices ul {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 680px) {
+    .rv__head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  @media (max-width: 560px) {
+    .rv__cols {
+      columns: 1;
+    }
+    .rv__wall {
+      max-height: 1400px;
+    }
+  }
+</style>
