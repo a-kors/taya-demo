@@ -86,7 +86,7 @@ import { master, formats } from '../data/master';
   :global(html.motion) .card--on > * {
     transition: opacity 0.4s ease 0.4s;
   }
-  :global(html.motion) .card--on:not(:global(.is-in)) > * {
+  :global(html.motion) .card--on:global(:not(.is-in)) > * {
     opacity: 0;
   }
   .card__head {
